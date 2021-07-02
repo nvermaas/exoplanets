@@ -3,16 +3,17 @@ import { useGlobalReducer } from '../contexts/GlobalContext';
 import {
     SET_STATUS,
     SET_HIPSLIST,
+    SET_STATUS_DATA,
+    SET_FETCHED_DATA
 } from '../contexts/GlobalStateReducer';
-
-//const url = "https://sdc.astron.nl/astron-hips/hipslist.txt"
 
 
 const url =
     process.env.NODE_ENV === "development"
         ? "http://localhost:3000/hipslist.txt"
         : "https://hips.astron.nl/hipslist"
-//        : "https://sdc.astron.nl/astron-hips/hipslist.txt"
+
+const url_astrobase = "https://uilennest.net/my_astrobase/observations2/"
 
 export default function FetchData () {
     // use global state
@@ -23,6 +24,11 @@ export default function FetchData () {
             console.log('useEffect')
             fetchHipsList(url)
         }, [url]
+    );
+
+    useEffect(() => {
+            fetchObservations(url_astrobase)
+        }, []
     );
 
     // get the data from the api
@@ -93,5 +99,27 @@ export default function FetchData () {
             }
         }
         return records
+    }
+
+    const fetchObservations = (url) => {
+        if (my_state.status_data !== 'fetching')  {
+
+            // apply all the filters in my_state to the url_observations
+
+            my_dispatch({type: SET_STATUS_DATA, status: 'fetching'})
+
+            fetch(url)
+                .then(results => {
+                    return results.json();
+                })
+                .then(data => {
+                    my_dispatch({type: SET_FETCHED_DATA, fetched_data: data.results})
+                    my_dispatch({type: SET_STATUS_DATA, status_data: 'fetched'})
+                })
+                .catch(function () {
+                    my_dispatch({type: SET_STATUS_DATA, status_data: 'failed'})
+                    alert("fetch to " + url + " failed.");
+                })
+        }
     }
 }

@@ -8,8 +8,8 @@ import {
 } from "react-router-dom";
 
 import NavigationBar from './NavigationBar';
-import HipsPage from '../pages/HipsPage';
 import WelcomePage from '../pages/WelcomePage';
+import AladinPage from '../pages/aladin/AladinPage';
 import FetchData from '../services/FetchData';
 
 export default function Main() {
@@ -25,13 +25,14 @@ export default function Main() {
                     <Route exact path="/">
                         <WelcomePage />
                     </Route>
-                    <Route exact path="/hips">
-                        <HipsPage />
+                    <Route exact path="/aladin">
+                        <AladinPage />
                     </Route>
+
                 </Switch>
             </div>
             <footer>
-                <small> (C) 2021 - ASTRON - version 1.0.0 - 30 april 2021</small>
+                <small> (C) 2021 - Nico Vermaas - version 1.0.0 - 2 july 2021</small>
             </footer>
         </Router>
 
