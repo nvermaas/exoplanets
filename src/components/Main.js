@@ -17,7 +17,7 @@ export default function Main() {
     FetchData()
 
     return (
-        <Router basename="">
+        <Router basename="exoplanets">
             <div>
                 <NavigationBar/>
 

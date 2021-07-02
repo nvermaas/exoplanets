@@ -1,5 +1,5 @@
 # exoplanets
 
-Creating a demo project to show Aladin Light in ReactJS
+A simple demo project to show how Aladin Light can be used with ReactJS
 
-![](https://git.astron.nl/astron-sdc/astron-hips/-/blob/master/docs/astron-hips-screenshot.png)
+![](https://github.com/nvermaas/exoplanets/blob/master/docs/exoplanets.jpg)

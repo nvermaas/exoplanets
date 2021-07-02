@@ -7,7 +7,6 @@ import { NavLink, Link } from "react-router-dom"
 
 import { useGlobalReducer } from '../contexts/GlobalContext';
 
-
 export default function NavigationBar() {
     const [ my_state , my_dispatch] = useGlobalReducer()
 

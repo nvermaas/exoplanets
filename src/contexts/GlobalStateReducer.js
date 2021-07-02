@@ -1,5 +1,5 @@
 // Nico Vermaas - 2 jul 2021
-// This is the reducer for the global state providor.
+// This is the reducer for the global state provider.
 
 // possible actions
 export const SET_STATUS_DATA = 'SET_STATUS_DATA'
