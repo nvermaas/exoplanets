@@ -17,8 +17,8 @@ export default function NavigationBar() {
             <img alt='' src={logo} width="30" height="30" className="d-inline-block align-top"/>
 
             <Nav className="mr-auto">
-                <Nav.Link as={NavLink} to="/">Exoplanets</Nav.Link>
-                <Nav.Link as={NavLink} to="/aladin">Aladin</Nav.Link>
+                <Nav.Link as={NavLink} to="/">Welcome</Nav.Link>
+                <Nav.Link as={NavLink} to="/aladin">Asteroids</Nav.Link>
             </Nav>
         </Navbar>
 

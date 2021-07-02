@@ -24,7 +24,6 @@ export default function AladinPage(props) {
                     dec={my_state.aladin_dec}
                     fov={fov}
                     mode={my_state.aladin_mode}
-                    observation={my_state.current_observation}
                     data={my_state.fetched_data}/>
         </div>
     } else {

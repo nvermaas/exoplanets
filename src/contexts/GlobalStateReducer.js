@@ -1,10 +1,7 @@
-// Nico Vermaas - 28 oct 2019
+// Nico Vermaas - 2 jul 2021
 // This is the reducer for the global state providor.
 
 // possible actions
-export const SET_STATUS = 'SET_STATUS'
-export const SET_HIPSLIST = 'SET_HIPSLIST'
-
 export const SET_STATUS_DATA = 'SET_STATUS_DATA'
 export const SET_FETCHED_DATA = 'SET_FETCHED_DATA'
 
@@ -15,14 +12,11 @@ export const ALADIN_MODE = 'ALADIN_MODE'
 export const ALADIN_HIGHLIGHT = 'ALADIN_HIGHLIGHT'
 
 export const initialState = {
-        status: "unfetched",
-        hipslist: undefined,
-
         status_data : "unfetched",
         fetched_data: undefined,
 
-        aladin_ra: "84.17",
-        aladin_dec: "8.92",
+        aladin_ra: "28.0",
+        aladin_dec: "4.0",
         aladin_fov: "10",
         aladin_mode: "rectangle",
         aladin_highlight: undefined
@@ -30,18 +24,6 @@ export const initialState = {
 
 export const reducer = (state, action) => {
     switch (action.type) {
-
-        case SET_STATUS:
-            return {
-                ...state,
-                status: action.status
-            };
-
-        case SET_HIPSLIST:
-            return {
-                ...state,
-                hipslist: action.hipslist,
-            };
 
         case SET_STATUS_DATA:
             return {
