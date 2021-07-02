@@ -60,7 +60,7 @@ const Aladin = (props) => {
     }
 
 
-    let title = "1000 Asteroids in Aladin"
+    let title = "1000 Asteroids in Aladin (click them!)"
 
     return (
         <div>
