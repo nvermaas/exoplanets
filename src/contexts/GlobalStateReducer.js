@@ -2,8 +2,10 @@
 // This is the reducer for the global state provider.
 
 // possible actions
-export const SET_STATUS_DATA = 'SET_STATUS_DATA'
-export const SET_FETCHED_DATA = 'SET_FETCHED_DATA'
+export const SET_STATUS_ASTEROIDS = 'SET_STATUS_ASTEROIDS'
+export const SET_FETCHED_ASTEROIDS = 'SET_FETCHED_ASTEROIDS'
+export const SET_STATUS_EXOPLANETS = 'SET_STATUS_EXOPLANETS'
+export const SET_FETCHED_EXOPLANETS = 'SET_FETCHED_EXOPLANETS'
 
 export const ALADIN_RA = 'ALADIN_RA'
 export const ALADIN_DEC = 'ALADIN_DEC'
@@ -12,12 +14,15 @@ export const ALADIN_MODE = 'ALADIN_MODE'
 export const ALADIN_HIGHLIGHT = 'ALADIN_HIGHLIGHT'
 
 export const initialState = {
-        status_data : "unfetched",
-        fetched_data: undefined,
+        status_asteroids : "unfetched",
+        fetched_asteroids: undefined,
+
+        status_exoplanets : "unfetched",
+        fetched_exoplanets: undefined,
 
         aladin_ra: "28.0",
         aladin_dec: "4.0",
-        aladin_fov: "10",
+        aladin_fov: "30",
         aladin_mode: "rectangle",
         aladin_highlight: undefined
 }
@@ -25,16 +30,28 @@ export const initialState = {
 export const reducer = (state, action) => {
     switch (action.type) {
 
-        case SET_STATUS_DATA:
+        case SET_STATUS_ASTEROIDS:
             return {
                 ...state,
-                status_data: action.status_data
+                status_asteroids: action.status_asteroids
             };
 
-        case SET_FETCHED_DATA:
+        case SET_FETCHED_ASTEROIDS:
             return {
                 ...state,
-                fetched_data: action.fetched_data
+                fetched_asteroids: action.fetched_asteroids
+            };
+
+        case SET_STATUS_EXOPLANETS:
+            return {
+                ...state,
+                status_exoplanets: action.status_exoplanets
+            };
+
+        case SET_FETCHED_EXOPLANETS:
+            return {
+                ...state,
+                fetched_exoplanets: action.fetched_exoplanets
             };
 
         case ALADIN_RA:

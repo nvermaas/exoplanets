@@ -5,7 +5,7 @@ import { useGlobalReducer } from '../../contexts/GlobalContext';
 
 import Aladin from './Aladin'
 
-export default function AladinPage(props) {
+export default function AsteroidsPage(props) {
 
     const [ my_state, my_dispatch] = useGlobalReducer()
 
@@ -18,13 +18,13 @@ export default function AladinPage(props) {
 
     let renderPage
 
-    if (my_state.status_data === "fetched") {
+    if (my_state.status_exoplanets === "fetched") {
         renderPage = <div className="aladin">
             <Aladin ra={my_state.aladin_ra}
                     dec={my_state.aladin_dec}
                     fov={fov}
                     mode={my_state.aladin_mode}
-                    data={my_state.fetched_data}/>
+                    data={my_state.fetched_exoplanets}/>
         </div>
     } else {
         renderPage = <LoadingSpinner/>
