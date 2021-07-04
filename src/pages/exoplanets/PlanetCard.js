@@ -2,22 +2,19 @@ import React from 'react';
 import {Card, Button, Table, Image } from 'react-bootstrap'
 import { useGlobalReducer } from '../../contexts/GlobalContext';
 
+import { getPlanet } from '../../utils/selection'
 
-function getPlanet(planets, planet_name) {
-
-    return planets.find((planet) => {
-        if (planet.pl_name===planet_name) {
-            return true;
-        }
-        return false;
-    });
-}
 
 export default function PlanetCard(props) {
     const [ my_state , my_dispatch] = useGlobalReducer()
 
     let planet_name = my_state.selected
     let selected_planet = getPlanet(my_state.fetched_exoplanets, planet_name)
+
+    if (!selected_planet) {
+        return <h5>Hover over a planet in the Aladin window</h5>
+    }
+
     let url_to_exoplanet = "http://exoplanet.eu/catalog/"+planet_name
 
     let render_radius
@@ -42,21 +39,20 @@ export default function PlanetCard(props) {
                 <Card.Body>
                     <Table striped bordered hover size="sm">
                         <tbody>
+
                         <tr>
-                            <td colspan="2" className="key"><h4>Planet</h4></td>
-                        </tr>
-                        <tr>
-                            <td className="key">Name</td>
-                            <td className="value"><a href={url_to_exoplanet} target="_blank" rel="noopener noreferrer">{planet_name}</a></td>
+                            <td className="key"><h4>Planet</h4></td>
+                            <td className="value"><h4><a href={url_to_exoplanet} target="_blank" rel="noopener noreferrer">{planet_name}</a></h4></td>
                         </tr>
                         {render_radius}
                         {render_mass}
+                        </tbody>
+                    </Table>
+                    <Table striped bordered hover size="sm">
+                       <tbody>
                         <tr>
-                            <td colspan="2" className="key"><h4>Star</h4></td>
-                        </tr>
-                        <tr>
-                            <td className="key">Star</td>
-                            <td className="value">{selected_planet.hostname}</td>
+                            <td className="key"><h4>Star</h4></td>
+                            <td className="value"><h4>{selected_planet.hostname}</h4></td>
                         </tr>
                         <tr>
                             <td className="key">Spectral Type</td>
@@ -78,19 +74,20 @@ export default function PlanetCard(props) {
                             <td className="key">Distance (parsec)</td>
                             <td className="value">{parseInt(selected_planet.sy_dist*10)/10}</td>
                         </tr>
+                       </tbody>
+                    </Table>
+                    <Table striped bordered hover size="sm">
+                        <tbody>
                         <tr>
-                            <td colspan="2" className="key"><h4>Discovery</h4></td>
-                        </tr>
-                        <tr>
-                            <td className="key">Year</td>
-                            <td className="value">{selected_planet.disc_year}</td>
+                            <td className="key"><h4>Discovery</h4></td>
+                            <td className="value"><h4>{selected_planet.disc_year}</h4></td>
                         </tr>
                         <tr>
                             <td className="key">Facility</td>
                             <td className="value">{selected_planet.disc_facility}</td>
                         </tr>
                         <tr>
-                            <td className="key">Soltype</td>
+                            <td className="key">Solution</td>
                             <td className="value">{selected_planet.soltype}</td>
                         </tr>
                         </tbody>

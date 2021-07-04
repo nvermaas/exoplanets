@@ -7,9 +7,10 @@ const Aladin = (props) => {
     const [ my_state , my_dispatch] = useGlobalReducer()
 
     React.useEffect(() => {
+
         let aladin = window.A.aladin('#aladin-lite-div', { survey: 'P/DSS2/color', fov:60 })
-        aladin.setFov(props.fov)
-        aladin.gotoRaDec(props.ra, props.dec)
+        aladin.setFov(my_state.aladin_fov)
+        aladin.gotoRaDec(my_state.aladin_ra, my_state.aladin_dec)
 
         // create the catalog layer
         createLayers(aladin, props.data)
@@ -42,7 +43,7 @@ const Aladin = (props) => {
             }
         });
 
-    }, [])
+    }, [my_state.filtered_exoplanets, my_state.aladin_reload])
 
 
     const addCirclesToOverlay = (my_overlay, object, color) => {

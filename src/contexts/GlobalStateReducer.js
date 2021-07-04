@@ -6,13 +6,15 @@ export const SET_STATUS_ASTEROIDS = 'SET_STATUS_ASTEROIDS'
 export const SET_FETCHED_ASTEROIDS = 'SET_FETCHED_ASTEROIDS'
 export const SET_STATUS_EXOPLANETS = 'SET_STATUS_EXOPLANETS'
 export const SET_FETCHED_EXOPLANETS = 'SET_FETCHED_EXOPLANETS'
+export const SET_FILTERED_EXOPLANETS = 'SET_FILTERED_EXOPLANETS'
+
 export const SET_SELECTED = 'SET_SELECTED'
 
 export const ALADIN_RA = 'ALADIN_RA'
 export const ALADIN_DEC = 'ALADIN_DEC'
 export const ALADIN_FOV = 'ALADIN_FOV'
 export const ALADIN_MODE = 'ALADIN_MODE'
-export const ALADIN_HIGHLIGHT = 'ALADIN_HIGHLIGHT'
+export const ALADIN_RELOAD = 'ALADIN_RELOAD'
 
 export const initialState = {
         status_asteroids : "unfetched",
@@ -20,7 +22,8 @@ export const initialState = {
 
         status_exoplanets : "unfetched",
         fetched_exoplanets: undefined,
-        selected : "HD 290327 b",
+        filtered_exoplanets: undefined,
+        selected : undefined,
 
         aladin_ra: "90.0",
         aladin_dec: "0.0",
@@ -56,6 +59,12 @@ export const reducer = (state, action) => {
                 fetched_exoplanets: action.fetched_exoplanets
             };
 
+        case SET_FILTERED_EXOPLANETS:
+            return {
+                ...state,
+                filtered_exoplanets: action.filtered_exoplanets
+            };
+
         case SET_SELECTED:
             return {
                 ...state,
@@ -63,6 +72,7 @@ export const reducer = (state, action) => {
             };
 
         case ALADIN_RA:
+
             return {
                 ...state,
                 aladin_ra: action.aladin_ra
@@ -87,11 +97,11 @@ export const reducer = (state, action) => {
                 aladin_mode: action.aladin_mode
             };
 
-        case ALADIN_HIGHLIGHT:
+        case ALADIN_RELOAD:
 
             return {
                 ...state,
-                aladin_highlight: action.aladin_highlight
+                aladin_reload: action.aladin_reload
             };
 
         default:

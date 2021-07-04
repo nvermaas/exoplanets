@@ -4,7 +4,8 @@ import {
     SET_STATUS_ASTEROIDS,
     SET_FETCHED_ASTEROIDS,
     SET_STATUS_EXOPLANETS,
-    SET_FETCHED_EXOPLANETS
+    SET_FETCHED_EXOPLANETS,
+    SET_FILTERED_EXOPLANETS
 } from '../contexts/GlobalStateReducer';
 
 
@@ -56,6 +57,7 @@ export default function FetchData () {
                 })
                 .then(data => {
                     my_dispatch({type: SET_FETCHED_EXOPLANETS, fetched_exoplanets: data.results})
+                    my_dispatch({type: SET_FILTERED_EXOPLANETS, filtered_exoplanets: data.results})
                     my_dispatch({type: SET_STATUS_EXOPLANETS, status_exoplanets: 'fetched'})
                 })
                 .catch(function () {
