@@ -6,6 +6,7 @@ export const SET_STATUS_ASTEROIDS = 'SET_STATUS_ASTEROIDS'
 export const SET_FETCHED_ASTEROIDS = 'SET_FETCHED_ASTEROIDS'
 export const SET_STATUS_EXOPLANETS = 'SET_STATUS_EXOPLANETS'
 export const SET_FETCHED_EXOPLANETS = 'SET_FETCHED_EXOPLANETS'
+export const SET_SELECTED = 'SET_SELECTED'
 
 export const ALADIN_RA = 'ALADIN_RA'
 export const ALADIN_DEC = 'ALADIN_DEC'
@@ -19,6 +20,7 @@ export const initialState = {
 
         status_exoplanets : "unfetched",
         fetched_exoplanets: undefined,
+        selected : "HD 290327 b",
 
         aladin_ra: "90.0",
         aladin_dec: "0.0",
@@ -52,6 +54,12 @@ export const reducer = (state, action) => {
             return {
                 ...state,
                 fetched_exoplanets: action.fetched_exoplanets
+            };
+
+        case SET_SELECTED:
+            return {
+                ...state,
+                selected: action.selected
             };
 
         case ALADIN_RA:

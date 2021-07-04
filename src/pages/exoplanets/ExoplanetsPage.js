@@ -1,11 +1,13 @@
 import React from 'react';
+import { Container, Row, Col, Card, Table } from 'react-bootstrap';
 
 import LoadingSpinner from '../../components/LoadingSpinner';
 import { useGlobalReducer } from '../../contexts/GlobalContext';
 
+import ControlCard from './PlanetCard'
 import Aladin from './Aladin'
 
-export default function AsteroidsPage(props) {
+export default function ExoplanetsPage(props) {
 
     const [ my_state, my_dispatch] = useGlobalReducer()
 
@@ -16,23 +18,28 @@ export default function AsteroidsPage(props) {
         fov = '10'
     }
 
-    let renderPage
-
-    if (my_state.status_exoplanets === "fetched") {
-        renderPage = <div className="aladin">
-            <Aladin ra={my_state.aladin_ra}
-                    dec={my_state.aladin_dec}
-                    fov={fov}
-                    mode={my_state.aladin_mode}
-                    data={my_state.fetched_exoplanets}/>
-        </div>
-    } else {
-        renderPage = <LoadingSpinner/>
+    if (my_state.status_exoplanets !== "fetched") {
+        return <LoadingSpinner/>
     }
 
     return (
         <div>
-        {renderPage}
+            <Container fluid>
+                <Row>
+                    <Col sm={3} md={3} lg={3}>
+                        <ControlCard/>
+                    </Col>
+                    <Col sm={9} md={9} lg={9}>
+                        <Card>
+                            <Aladin ra={my_state.aladin_ra}
+                                    dec={my_state.aladin_dec}
+                                    fov={fov}
+                                    mode={my_state.aladin_mode}
+                                    data={my_state.fetched_exoplanets}/>
+                        </Card>
+                    </Col>
+                </Row>
+            </Container>
         </div>
     );
 }

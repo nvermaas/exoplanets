@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { useGlobalReducer } from '../../contexts/GlobalContext'
+import { SET_SELECTED } from '../../contexts/GlobalStateReducer'
 
 const Aladin = (props) => {
     const [ my_state , my_dispatch] = useGlobalReducer()
@@ -13,22 +14,38 @@ const Aladin = (props) => {
         // create the catalog layer
         createLayers(aladin, props.data)
 
+        // add a listener to aladin
+        // define function triggered when  a source is hovered
+        aladin.on('objectHovered', function(object) {
+
+            var msg;
+            if (object) {
+                try {
+                    msg = object.data.planet;
+
+                    // highlight the observation under the mouse
+
+                    let my_object = object.data.planet
+
+                    // recreate all the layers, but now with a different highlighted observation
+                    //createLayers(aladin, props.data, my_object)
+
+                    // save the highlighted observation to the local state
+                    // now only used to display it
+                    //setHighlightedObservation(my_object)
+
+                    // save the highlighed observation to the global state (not used for anything yet)
+
+                    my_dispatch({type: SET_SELECTED, selected: my_object})
+                } catch (e) {
+                }
+            }
+        });
+
     }, [])
 
-    // get the bounding box in world coordinates from an observation
-    const getBox = (object) => {
-        let size = 1
-        let point1 = [object.ra - size, object.dec - size]
-        let point2 = [object.ra - size, object.dec + size]
-        let point3 = [object.ra + size, object.dec + size]
-        let point4 = [object.ra + size, object.dec - size]
-        let box = [point1,point2,point3,point4,point1]
-        return box
-    }
 
-    const addBoxesToOverlay = (my_overlay, object, color) => {
-        let box = getBox(object)
-        //my_overlay.add(window.A.polyline(box, {color: color, lineWidth: 1}));
+    const addCirclesToOverlay = (my_overlay, object, color) => {
         my_overlay.add(window.A.circle(object.ra, object.dec,0.5, {color: color, lineWidth: 2}));
     }
 
@@ -49,18 +66,19 @@ const Aladin = (props) => {
             sourceSize: 20,
             labelColumn: 'planet',
             displayLabel: true,
-            onClick: 'showTable'});
+            onClick: 'showPopup'});
+            //onClick: 'showTable'});
 
         // loop through all the objects and add them to the appropriate layer based a property
         if (data) {
             data.forEach(function (object) {
 
                 //if (object.sy_pnum===1) {
-                //    addBoxesToOverlay(overlay_single_planet, object, "yellow")
+                //    addCirclesToOverlay(overlay_single_planet, object, "yellow")
                 //} else
 
                 if (object.sy_pnum>1) {
-                    addBoxesToOverlay(overlay_multiple_planets, object, "green")
+                    addCirclesToOverlay(overlay_multiple_planets, object, "green")
                 }
 
                 // draw a clickable icon for each observation
@@ -75,9 +93,9 @@ const Aladin = (props) => {
     }
 
     const addToCatalog = (my_catalog, object) => {
-        //let url = "https://uilennest.net/my_astrobase/exoplanets/?soltype__icontains=confirmed&hostname__icontains="+object.hostname
+        let url = "https://uilennest.net/my_astrobase/exoplanets/?soltype__icontains=confirmed&hostname__icontains="+object.hostname
         let name = object.pl_name.replace(' ','_')
-        let url = "http://exoplanet.eu/catalog/"+name
+        //let url = "http://exoplanet.eu/catalog/"+name
 
         let source = [window.A.source(
             object.ra,
@@ -93,25 +111,12 @@ const Aladin = (props) => {
 
         )]
 
-        let marker = [window.A.marker(
-            object.ra,
-            object.dec,
-
-            {
-                my_field_name: object.pl_name,
-                my_name: object.hostname,
-                number_of_planets : object.sy_pnum,
-                popupTitle: '<a href="'+url+'" target="_blank">'+object.pl_name+'</a>',
-                popupDesc: '<hr>Planets: '+ object.sy_pnum,
-            },
-
-        )]
         my_catalog.addSources(source);
         //my_catalog.addSources(marker);
     }
 
 
-    let title = "Exoplanets (click them!)"
+    let title
 
     return (
         <div>
