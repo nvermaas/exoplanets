@@ -44,11 +44,11 @@ const Aladin = (props) => {
 
         let my_catalog = window.A.catalog({
             name: 'Exoplanets',
-            shape : 'square',
+            shape : 'circle',
             color : 'red',
             sourceSize: 20,
-            //labelColumn: 'name',
-            //displayLabel: true,
+            labelColumn: 'planet',
+            displayLabel: true,
             onClick: 'showTable'});
 
         // loop through all the objects and add them to the appropriate layer based a property
@@ -68,6 +68,7 @@ const Aladin = (props) => {
             })
 
             aladin.addCatalog(my_catalog);
+            //aladin.addCatalog(window.A.catalogFromSimbad('m45', 0.2, {shape: 'plus', color : '#5d5', onClick: 'showTable'}));
 
         }
 
@@ -78,13 +79,14 @@ const Aladin = (props) => {
         let name = object.pl_name.replace(' ','_')
         let url = "http://exoplanet.eu/catalog/"+name
 
-        let source = [window.A.marker(
+        let source = [window.A.source(
             object.ra,
             object.dec,
 
             {
-                my_field_name: object.pl_name,
-                my_name: object.hostname,
+                planet: object.pl_name,
+                star: object.hostname,
+                nr_planets : object.sy_pnum,
                 popupTitle: '<a href="'+url+'" target="_blank">'+object.pl_name+'</a>',
                 popupDesc: '<hr>Planets: '+ object.sy_pnum,
             },
@@ -98,6 +100,7 @@ const Aladin = (props) => {
             {
                 my_field_name: object.pl_name,
                 my_name: object.hostname,
+                number_of_planets : object.sy_pnum,
                 popupTitle: '<a href="'+url+'" target="_blank">'+object.pl_name+'</a>',
                 popupDesc: '<hr>Planets: '+ object.sy_pnum,
             },

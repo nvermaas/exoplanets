@@ -20,8 +20,8 @@ export const initialState = {
         status_exoplanets : "unfetched",
         fetched_exoplanets: undefined,
 
-        aladin_ra: "28.0",
-        aladin_dec: "4.0",
+        aladin_ra: "90.0",
+        aladin_dec: "0.0",
         aladin_fov: "30",
         aladin_mode: "rectangle",
         aladin_highlight: undefined
