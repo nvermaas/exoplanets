@@ -12,7 +12,7 @@ export default function PlanetCard(props) {
     let selected_planet = getPlanet(my_state.fetched_exoplanets, planet_name)
 
     if (!selected_planet) {
-        return <h5>Hover over a planet in the Aladin window</h5>
+        return <h5>Move the mouse over a planet</h5>
     }
 
     let url_to_exoplanet = "http://exoplanet.eu/catalog/"+planet_name
@@ -46,10 +46,7 @@ export default function PlanetCard(props) {
                         </tr>
                         {render_radius}
                         {render_mass}
-                        </tbody>
-                    </Table>
-                    <Table striped bordered hover size="sm">
-                       <tbody>
+ 
                         <tr>
                             <td className="key"><h4>Star</h4></td>
                             <td className="value"><h4>{selected_planet.hostname}</h4></td>
@@ -74,10 +71,6 @@ export default function PlanetCard(props) {
                             <td className="key">Distance (parsec)</td>
                             <td className="value">{parseInt(selected_planet.sy_dist*10)/10}</td>
                         </tr>
-                       </tbody>
-                    </Table>
-                    <Table striped bordered hover size="sm">
-                        <tbody>
                         <tr>
                             <td className="key"><h4>Discovery</h4></td>
                             <td className="value"><h4>{selected_planet.disc_year}</h4></td>

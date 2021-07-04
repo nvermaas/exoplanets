@@ -19,8 +19,6 @@ const Aladin = (props) => {
         // define function triggered when  a source is hovered
         aladin.on('objectHovered', function(object) {
 
-            var msg;
-
             // when an object is hovered, store the ra,dec,fov in the global state
             // (because I found no better or more accurate way of doing this).
 
@@ -33,21 +31,8 @@ const Aladin = (props) => {
 
             if (object) {
                 try {
-                    msg = object.data.planet;
-
-                    // highlight the observation under the mouse
-
-                    let my_object = object.data.planet
-
-                    // recreate all the layers, but now with a different highlighted object
-                    //createLayers(aladin, props.data, my_object)
-
-                    // save the highlighted object to the local state
-                    // now only used to display it
-                    //setHighlightedObservation(my_object)
-
-                    // save the select object to the global state
-                    my_dispatch({type: SET_SELECTED, selected: my_object})
+                    // select the object under the mouse cursor, and store it in global state
+                    my_dispatch({type: SET_SELECTED, selected: object.data.planet})
                 } catch (e) {
                 }
             }
@@ -97,10 +82,11 @@ const Aladin = (props) => {
             })
 
             aladin.addCatalog(my_catalog);
+
+            // add Simbad catalog
             //aladin.addCatalog(window.A.catalogFromSimbad('m45', 0.2, {shape: 'plus', color : '#5d5', onClick: 'showTable'}));
 
         }
-
     }
 
     const addToCatalog = (my_catalog, object) => {
@@ -123,15 +109,10 @@ const Aladin = (props) => {
         )]
 
         my_catalog.addSources(source);
-        //my_catalog.addSources(marker);
     }
-
-
-    let title
 
     return (
         <div>
-            <h3>{title}</h3>
             <div id='aladin-lite-div' className="aladin"  />
         </div>
     )
