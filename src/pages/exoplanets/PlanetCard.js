@@ -46,7 +46,7 @@ export default function PlanetCard(props) {
                         </tr>
                         {render_radius}
                         {render_mass}
- 
+
                         <tr>
                             <td className="key"><h4>Star</h4></td>
                             <td className="value"><h4>{selected_planet.hostname}</h4></td>

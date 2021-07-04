@@ -24,10 +24,21 @@ export function getPlanets(planets, planet_name, maxResults) {
 export function filterYear(planets, year) {
 
     return planets.filter((planet) => {
+        // year is a range
 
+        if (year.includes('-')) {
+            let years = year.split('-')
+
+            if ( parseInt(planet.disc_year) >= parseInt(years[0])
+                && parseInt(planet.disc_year) <= parseInt(years[1])) {
+                return true
+            }
+        }
+
+        // year is a number
         if (parseInt(planet.disc_year)===parseInt(year)) {
             return true;
         }
         return false;
-    }).slice(0);;
+    }).slice(0);
 }

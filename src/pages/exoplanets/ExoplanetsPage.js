@@ -7,6 +7,7 @@ import { useGlobalReducer } from '../../contexts/GlobalContext';
 import FilterCard from './FilterCard'
 import PlanetCard from './PlanetCard'
 import StatusCard from './StatusCard'
+import YearFilterButton from './YearFilterButton'
 import Aladin from './Aladin'
 
 export default function ExoplanetsPage(props) {
@@ -25,11 +26,14 @@ export default function ExoplanetsPage(props) {
         <div>
             <Container fluid>
                 <Row>
-                    <FilterCard/>
-                </Row>
-                <Row>
                     <Col sm={3} md={3} lg={3}>
+
                         <PlanetCard/>
+                        <Card>
+                            <Card.Body>
+                        <td><YearFilterButton year="All" /></td>
+                            </Card.Body>
+                        </Card>
                     </Col>
                     <Col sm={9} md={9} lg={9}>
                         <Card>
