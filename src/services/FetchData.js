@@ -46,6 +46,7 @@ export default function FetchData () {
 
     const fetchExoplanets = () => {
         const url = "https://uilennest.net/my_astrobase/exoplanets-all/?soltype__icontains=confirmed"
+        //const url = "https://uilennest.net/my_astrobase/exoplanets-all"
 
         if (my_state.status_exoplanets !== 'fetching')  {
 

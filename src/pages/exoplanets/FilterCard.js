@@ -11,7 +11,7 @@ export default function FilterCard(props) {
     return (
         <div className="App">
             <Card>
-                <Table striped bordered hover size="sm">
+
                     <tbody>
                     <tr>
                         <td><YearButton year="All" /></td>
@@ -29,7 +29,7 @@ export default function FilterCard(props) {
                         <td><GotoButton ra="60" dec="30" /></td>
                     </tr>
                     </tbody>
-                </Table>
+
             </Card>
         </div>
     );

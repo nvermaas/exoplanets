@@ -6,6 +6,7 @@ import { useGlobalReducer } from '../../contexts/GlobalContext';
 
 import FilterCard from './FilterCard'
 import PlanetCard from './PlanetCard'
+import StatusCard from './StatusCard'
 import Aladin from './Aladin'
 
 export default function ExoplanetsPage(props) {

@@ -50,7 +50,7 @@ const Aladin = (props) => {
             {
                 my_field_name: object.designation,
                 my_name: object.designation,
-                popupTitle: '<h4>'+object.designation+'</h4>',
+                popupTitle: '<h5>'+object.designation+'</h5>',
                 popupDesc: '<hr>visual magnitude: '+ Math.round(object.visual_magnitude*10)/10,
             },
 

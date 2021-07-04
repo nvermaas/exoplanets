@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useGlobalReducer } from '../../contexts/GlobalContext'
-import { SET_SELECTED } from '../../contexts/GlobalStateReducer'
+import { SET_SELECTED, ALADIN_RA, ALADIN_DEC, ALADIN_FOV } from '../../contexts/GlobalStateReducer'
 
 const Aladin = (props) => {
     const [ my_state , my_dispatch] = useGlobalReducer()
@@ -9,7 +9,7 @@ const Aladin = (props) => {
     React.useEffect(() => {
 
         let aladin = window.A.aladin('#aladin-lite-div', { survey: 'P/DSS2/color', fov:60 })
-        aladin.setFov(my_state.aladin_fov)
+        aladin.setFov(parseFloat(my_state.aladin_fov))
         aladin.gotoRaDec(my_state.aladin_ra, my_state.aladin_dec)
 
         // create the catalog layer
@@ -20,6 +20,17 @@ const Aladin = (props) => {
         aladin.on('objectHovered', function(object) {
 
             var msg;
+
+            // when an object is hovered, store the ra,dec,fov in the global state
+            // (because I found no better or more accurate way of doing this).
+
+            let radec = aladin.getRaDec()
+            my_dispatch({type: ALADIN_RA, aladin_ra: radec[0]})
+            my_dispatch({type: ALADIN_DEC, aladin_dec: radec[1]})
+
+            let fov = aladin.getFov()
+            my_dispatch({type: ALADIN_FOV, aladin_fov: fov[0]})
+
             if (object) {
                 try {
                     msg = object.data.planet;
@@ -28,15 +39,14 @@ const Aladin = (props) => {
 
                     let my_object = object.data.planet
 
-                    // recreate all the layers, but now with a different highlighted observation
+                    // recreate all the layers, but now with a different highlighted object
                     //createLayers(aladin, props.data, my_object)
 
-                    // save the highlighted observation to the local state
+                    // save the highlighted object to the local state
                     // now only used to display it
                     //setHighlightedObservation(my_object)
 
-                    // save the highlighed observation to the global state (not used for anything yet)
-
+                    // save the select object to the global state
                     my_dispatch({type: SET_SELECTED, selected: my_object})
                 } catch (e) {
                 }

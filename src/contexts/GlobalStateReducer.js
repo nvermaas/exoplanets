@@ -13,7 +13,6 @@ export const SET_SELECTED = 'SET_SELECTED'
 export const ALADIN_RA = 'ALADIN_RA'
 export const ALADIN_DEC = 'ALADIN_DEC'
 export const ALADIN_FOV = 'ALADIN_FOV'
-export const ALADIN_MODE = 'ALADIN_MODE'
 export const ALADIN_RELOAD = 'ALADIN_RELOAD'
 
 export const initialState = {
@@ -28,8 +27,6 @@ export const initialState = {
         aladin_ra: "90.0",
         aladin_dec: "0.0",
         aladin_fov: "30",
-        aladin_mode: "rectangle",
-        aladin_highlight: undefined
 }
 
 export const reducer = (state, action) => {
@@ -88,13 +85,6 @@ export const reducer = (state, action) => {
             return {
                 ...state,
                 aladin_fov: action.aladin_fov
-            };
-
-        case ALADIN_MODE:
-
-            return {
-                ...state,
-                aladin_mode: action.aladin_mode
             };
 
         case ALADIN_RELOAD:
