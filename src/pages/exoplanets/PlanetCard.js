@@ -15,7 +15,9 @@ export default function PlanetCard(props) {
         return <h5>Move the mouse over a planet</h5>
     }
 
-    let url_to_exoplanet = "http://exoplanet.eu/catalog/"+planet_name
+    let trimmed_name = planet_name.replaceAll(' ','_')
+    let url_to_exoplanet = "http://www.exoplanetkyoto.org/exohtml/"+trimmed_name+".html"
+    //let url_to_exoplanet = "http://exoplanet.eu/catalog/"+planet_name
 
     let render_radius
     if (selected_planet.pl_rade) {

@@ -90,9 +90,14 @@ const Aladin = (props) => {
     }
 
     const addToCatalog = (my_catalog, object) => {
+
+
         let url = "https://uilennest.net/my_astrobase/exoplanets/?soltype__icontains=confirmed&hostname__icontains="+object.hostname
-        let name = object.pl_name.replace(' ','_')
+
+        let name = object.pl_name.replaceAll(' ','_')
         //let url = "http://exoplanet.eu/catalog/"+name
+
+        url = "http://www.exoplanetkyoto.org/exohtml/"+name+".html"
 
         let source = [window.A.source(
             object.ra,
