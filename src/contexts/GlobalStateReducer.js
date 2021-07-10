@@ -8,12 +8,14 @@ export const SET_STATUS_EXOPLANETS = 'SET_STATUS_EXOPLANETS'
 export const SET_FETCHED_EXOPLANETS = 'SET_FETCHED_EXOPLANETS'
 export const SET_FILTERED_EXOPLANETS = 'SET_FILTERED_EXOPLANETS'
 
-export const SET_SELECTED = 'SET_SELECTED'
+export const SET_SELECTED_EXOPLANET = 'SET_SELECTED_EXOPLANET'
 
 export const ALADIN_RA = 'ALADIN_RA'
 export const ALADIN_DEC = 'ALADIN_DEC'
 export const ALADIN_FOV = 'ALADIN_FOV'
 export const ALADIN_RELOAD = 'ALADIN_RELOAD'
+
+export const SHOW_PLANETLIST = 'SHOW_PLANETLIST'
 
 export const initialState = {
         status_asteroids : "unfetched",
@@ -22,11 +24,13 @@ export const initialState = {
         status_exoplanets : "unfetched",
         fetched_exoplanets: undefined,
         filtered_exoplanets: undefined,
-        selected : undefined,
+        selected_exoplanet : undefined,
 
         aladin_ra: "90.0",
         aladin_dec: "0.0",
         aladin_fov: "30",
+
+        show_planetlist : false
 }
 
 export const reducer = (state, action) => {
@@ -62,10 +66,11 @@ export const reducer = (state, action) => {
                 filtered_exoplanets: action.filtered_exoplanets
             };
 
-        case SET_SELECTED:
+        case SET_SELECTED_EXOPLANET:
+            //alert(action.selected_exoplanet)
             return {
                 ...state,
-                selected: action.selected
+                selected_exoplanet: action.selected_exoplanet
             };
 
         case ALADIN_RA:
@@ -92,6 +97,13 @@ export const reducer = (state, action) => {
             return {
                 ...state,
                 aladin_reload: action.aladin_reload
+            };
+
+        case SHOW_PLANETLIST:
+
+            return {
+                ...state,
+                show_planetlist: action.show_planetlist
             };
 
         default:

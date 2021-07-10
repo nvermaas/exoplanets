@@ -2,9 +2,10 @@ import React from 'react';
 import {Card, Button, Table, Image } from 'react-bootstrap'
 import { useGlobalReducer } from '../../contexts/GlobalContext';
 
-import YearButton from './YearButton'
 import GotoButton from './GotoButton'
 import YearFilterButton from './YearFilterButton'
+import SearchButton from './SearchButton'
+import PlanetListCard from './PlanetListCard'
 
 export default function FilterCard(props) {
     const [ my_state , my_dispatch] = useGlobalReducer()
@@ -12,16 +13,16 @@ export default function FilterCard(props) {
     return (
         <div className="App">
             <Card>
-
-                    <tbody>
-                    <tr>
-                        <td><YearFilterButton year="All" /></td>
-
-                        <td><GotoButton ra="90" dec="30" /></td>
-                        <td><GotoButton ra="60" dec="30" /></td>
-                    </tr>
-                    </tbody>
-
+                <Card.Body>
+                    <tr><td><h5>Selected Planets: {my_state.filtered_exoplanets.length}</h5></td></tr>
+                    <table>
+                        <tbody>
+                            <tr><td><YearFilterButton year="All" /></td></tr>
+                            <tr><td><SearchButton default="Kepler 16-b" /></td></tr>
+                        </tbody>
+                    </table>
+                    <PlanetListCard/>
+                </Card.Body>
             </Card>
         </div>
     );

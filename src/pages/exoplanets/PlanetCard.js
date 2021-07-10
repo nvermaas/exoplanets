@@ -8,7 +8,7 @@ import { getPlanet } from '../../utils/selection'
 export default function PlanetCard(props) {
     const [ my_state , my_dispatch] = useGlobalReducer()
 
-    let planet_name = my_state.selected
+    let planet_name = my_state.selected_exoplanet
     let selected_planet = getPlanet(my_state.fetched_exoplanets, planet_name)
 
     if (!selected_planet) {
@@ -52,6 +52,10 @@ export default function PlanetCard(props) {
                             <td className="value"><h4>{selected_planet.hostname}</h4></td>
                         </tr>
                         <tr>
+                            <td className="key">Hipparcos</td>
+                            <td className="value">{selected_planet.hip_name}</td>
+                        </tr>
+                        <tr>
                             <td className="key">Spectral Type</td>
                             <td className="value">{selected_planet.st_spectype}</td>
                         </tr>
@@ -79,10 +83,7 @@ export default function PlanetCard(props) {
                             <td className="key">Facility</td>
                             <td className="value">{selected_planet.disc_facility}</td>
                         </tr>
-                        <tr>
-                            <td className="key">Solution</td>
-                            <td className="value">{selected_planet.soltype}</td>
-                        </tr>
+
                         </tbody>
 
                     </Table>

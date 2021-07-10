@@ -42,3 +42,16 @@ export function filterYear(planets, year) {
         return false;
     }).slice(0);
 }
+
+// return a list of planets where 'pl_name' has the value of 'searchText' in it
+export function filterPlanets(planets, searchText, maxResults) {
+
+    return planets.filter((planet) => {
+
+        if (planet.pl_name.toUpperCase().includes(searchText)) {
+            return true;
+        }
+
+        return false;
+    }).slice(0, maxResults);
+}

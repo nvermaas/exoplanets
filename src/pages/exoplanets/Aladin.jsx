@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useGlobalReducer } from '../../contexts/GlobalContext'
-import { SET_SELECTED, ALADIN_RA, ALADIN_DEC, ALADIN_FOV } from '../../contexts/GlobalStateReducer'
+import { SET_SELECTED_EXOPLANET, ALADIN_RA, ALADIN_DEC, ALADIN_FOV } from '../../contexts/GlobalStateReducer'
 
 const Aladin = (props) => {
     const [ my_state , my_dispatch] = useGlobalReducer()
@@ -32,13 +32,13 @@ const Aladin = (props) => {
             if (object) {
                 try {
                     // select the object under the mouse cursor, and store it in global state
-                    my_dispatch({type: SET_SELECTED, selected: object.data.planet})
+                    my_dispatch({type: SET_SELECTED_EXOPLANET, selected_exoplanet: object.data.planet})
                 } catch (e) {
                 }
             }
         });
 
-    }, [my_state.filtered_exoplanets, my_state.aladin_reload])
+    }, [my_state.filtered_exoplanets, my_state.selected_exoplanet, my_state.aladin_reload])
 
 
     const addCirclesToOverlay = (my_overlay, object, color) => {
@@ -100,10 +100,8 @@ const Aladin = (props) => {
 
             {
                 planet: object.pl_name,
-                star: object.hostname,
-                nr_planets : object.sy_pnum,
-                popupTitle: '<a href="'+url+'" target="_blank">'+object.pl_name+'</a>',
-                popupDesc: '<hr>Planets: '+ object.sy_pnum,
+                star: '<a href="'+url+'" target="_blank">'+object.hostname+'</a>',
+                nr_of_planets: '<hr>Planets: '+ object.sy_pnum,
             },
 
         )]
