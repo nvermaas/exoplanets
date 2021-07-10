@@ -22,7 +22,7 @@ export default function YearFilterButton() {
 
     return <Dropdown>
         <Dropdown.Toggle variant="outline-primary" id="dropdown-basic">
-            {getClockIcon()}&nbsp;Select Year of discovery
+            {getClockIcon()}&nbsp;Year of discovery
         </Dropdown.Toggle>
 
         <Dropdown.Menu>

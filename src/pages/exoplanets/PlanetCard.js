@@ -51,10 +51,7 @@ export default function PlanetCard(props) {
                             <td className="key"><h4>Star</h4></td>
                             <td className="value"><h4>{selected_planet.hostname}</h4></td>
                         </tr>
-                        <tr>
-                            <td className="key">Hipparcos</td>
-                            <td className="value">{selected_planet.hip_name}</td>
-                        </tr>
+
                         <tr>
                             <td className="key">Spectral Type</td>
                             <td className="value">{selected_planet.st_spectype}</td>

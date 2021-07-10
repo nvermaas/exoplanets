@@ -2,7 +2,7 @@ import React from 'react';
 import { Form, FormControl, Button } from 'react-bootstrap';
 import { useGlobalReducer } from '../../contexts/GlobalContext';
 import { filterPlanets } from '../../utils/selection'
-import { getClockIcon } from '../../utils/styling'
+import { getBackspaceIcon } from '../../utils/styling'
 
 import {
     SET_SELECTED_EXOPLANET,
@@ -22,7 +22,7 @@ export default function SearchButton(props) {
         // execute the filter by dispatching it to the global state (Aladin will respond to that)...
         my_dispatch({type: SET_FILTERED_EXOPLANETS, filtered_exoplanets: filtered_exoplanets})
 
-        if (filtered_exoplanets.length < 30) {
+        if (filtered_exoplanets.length <= 50) {
             my_dispatch({type: SHOW_PLANETLIST, show_planetlist: true})
         } else {
             if (my_state.show_planetlist) {
@@ -33,9 +33,8 @@ export default function SearchButton(props) {
     }
 
     const handleResetClick = (event) => {
-        event.target.value = ''
         my_dispatch({type: SET_FILTERED_EXOPLANETS, filtered_exoplanets: my_state.fetched_exoplanets})
-
+        my_dispatch({type: SHOW_PLANETLIST, show_planetlist: false})
     }
 
     // use if you want the search to start while you hit enter
@@ -54,12 +53,16 @@ export default function SearchButton(props) {
     }
 
     return <Form inline>
+        <td>
             <FormControl
                 type="text"
                 placeholder={props.default}
-                className="mr-sm-3"
-                onKeyPress={handleKeyPress} />
-            <Button variant="outline-primary" onClick={handleResetClick}>{getClockIcon()}&nbsp;Reset</Button>
+                className="mr-sm-1"
+                onKeyPress={handleKeyPress}>
+            </FormControl>
+        </td>
+        <td><Button type="reset" variant="outline-primary" onClick={handleResetClick}>{getBackspaceIcon()}&nbsp;Reset</Button></td>
         </Form>
+
 
 }

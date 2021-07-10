@@ -13,12 +13,13 @@ export default function FilterCard(props) {
     return (
         <div className="App">
             <Card>
+
                 <Card.Body>
                     <tr><td><h5>Selected Planets: {my_state.filtered_exoplanets.length}</h5></td></tr>
+                    <tr><td><YearFilterButton year="All" /></td></tr>
                     <table>
                         <tbody>
-                            <tr><td><YearFilterButton year="All" /></td></tr>
-                            <tr><td><SearchButton default="Kepler 16-b" /></td></tr>
+                            <tr><td><SearchButton default="search planet name" /></td></tr>
                         </tbody>
                     </table>
                     <PlanetListCard/>
