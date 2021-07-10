@@ -41,16 +41,16 @@ const Aladin = (props) => {
     }, [my_state.filtered_exoplanets, my_state.selected_exoplanet, my_state.aladin_reload])
 
 
-    const addCirclesToOverlay = (my_overlay, object, color) => {
-        my_overlay.add(window.A.circle(object.ra, object.dec,0.5, {color: color, lineWidth: 2}));
+    const addCirclesToOverlay = (my_overlay, object, color, size) => {
+        my_overlay.add(window.A.circle(object.ra, object.dec,size, {color: color, lineWidth: 2}));
     }
 
     // create the catalog layer
     const createLayers = (aladin, data) => {
         aladin.removeLayers()
 
-        //let overlay_single_planet = window.A.graphicOverlay({name: 'single planet',color: 'yellow', lineWidth: 3});
-        //aladin.addOverlay(overlay_single_planet);
+        let overlay_selected = window.A.graphicOverlay({name: 'selected',color: 'yellow', lineWidth: 3});
+        aladin.addOverlay(overlay_selected);
 
         let overlay_multiple_planets = window.A.graphicOverlay({name: 'multiple planets',color: 'green', lineWidth: 5});
         aladin.addOverlay(overlay_multiple_planets);
@@ -69,12 +69,12 @@ const Aladin = (props) => {
         if (data) {
             data.forEach(function (object) {
 
-                //if (object.sy_pnum===1) {
-                //    addCirclesToOverlay(overlay_single_planet, object, "yellow")
-                //} else
+                if (object.pl_name===my_state.selected_exoplanet) {
+                    addCirclesToOverlay(overlay_selected, object, "yellow",1)
+                } else
 
                 if (object.sy_pnum>1) {
-                    addCirclesToOverlay(overlay_multiple_planets, object, "green")
+                    addCirclesToOverlay(overlay_multiple_planets, object, "green",0.5)
                 }
 
                 // draw a clickable icon for each observation
