@@ -38,12 +38,11 @@ export default function SearchButton(props) {
     }
 
     // use if you want the search to start while you hit enter
-    // onKeyPress={handleKeyPress}
-    const handleKeyPress = (event) => {
+        const handleKeyUp = (event) => {
+
         text_to_search = event.target.value.toUpperCase()
 
         //if (event.charCode === 13) {
-            // start the search to the backend when the <enter> button is pressed
             doFilter()
 
             // prevent the enter key to reload the whole page
@@ -58,7 +57,7 @@ export default function SearchButton(props) {
                 type="text"
                 placeholder={props.default}
                 className="mr-sm-1"
-                onKeyPress={handleKeyPress}>
+                onKeyUp={handleKeyUp}>
             </FormControl>
         </td>
         <td><Button type="reset" variant="outline-primary" onClick={handleResetClick}>{getBackspaceIcon()}&nbsp;Reset</Button></td>
