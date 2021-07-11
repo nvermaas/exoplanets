@@ -9,15 +9,13 @@ export default function WelcomeCard(props) {
         <div className="App">
             <Card>
                 <Card.Body>
-                    <h2>Welcome to this ReactJS/Aladin demo app.</h2>
+                    <h2>Welcome to this ReactJS/<a href="https://aladin.u-strasbg.fr/aladin.gml#AladinLite">AladinLight</a> demo app.</h2>
                     <Table>
                         <img src={welcome_logo} />
 
                     </Table>
                     <Card.Text>
-
-                        <p>This is a demonstration of how <a href="https://aladin.u-strasbg.fr/aladin.gml#AladinLite">Aladin Light</a> can be used in <a href="https://reactjs.org/">ReactJS</a></p>
-
+                        <p>See how actions in the left information panel effect the right Aladin panel, and vice versa.</p>
                     </Card.Text>
                 </Card.Body>
             </Card>

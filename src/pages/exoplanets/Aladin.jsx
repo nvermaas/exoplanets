@@ -60,7 +60,7 @@ const Aladin = (props) => {
             shape : 'circle',
             color : 'red',
             sourceSize: 20,
-            labelColumn: 'planet',
+            labelColumn: 'star',
             displayLabel: true,
             onClick: 'showPopup'});
             //onClick: 'showTable'});
@@ -105,8 +105,9 @@ const Aladin = (props) => {
 
             {
                 planet: object.pl_name,
-                star: '<a href="'+url+'" target="_blank">'+object.hostname+'</a>',
-                nr_of_planets: '<hr>Planets: '+ object.sy_pnum,
+                star : object.hostname,
+                info: '<a href="'+url+'" target="_blank">'+object.hostname+'</a>',
+                nr_of_planets: 'Planets: '+ object.sy_pnum,
             },
 
         )]

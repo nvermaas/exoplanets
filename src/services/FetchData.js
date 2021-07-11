@@ -45,6 +45,8 @@ export default function FetchData () {
     }
 
     const fetchExoplanets = () => {
+        // TODO: add progress bar to fetch
+        // https://javascript.info/fetch-progress
         const url = "https://uilennest.net/my_astrobase/exoplanets-all/?soltype__icontains=confirmed"
         //const url = "https://uilennest.net/my_astrobase/exoplanets-all"
 
