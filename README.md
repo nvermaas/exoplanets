@@ -2,7 +2,7 @@
 
 A simple demo project to show how Aladin Light can be used with ReactJS.
 
-See it live: https://uilennest.net/exoplanets
+See it live: https://web-of-wyrd.nl/exoplanets
 
 
 ## run locally
