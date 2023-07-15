@@ -38,6 +38,8 @@ export default function YearFilterButton() {
             <Dropdown.Item onClick={() => handleClick("2019")}>2019</Dropdown.Item>
             <Dropdown.Item onClick={() => handleClick("2020")}>2020</Dropdown.Item>
             <Dropdown.Item onClick={() => handleClick("2021")}>2021</Dropdown.Item>
+            <Dropdown.Item onClick={() => handleClick("2022")}>2022</Dropdown.Item>
+            <Dropdown.Item onClick={() => handleClick("2023")}>2023</Dropdown.Item>
         </Dropdown.Menu>
     </Dropdown>
 
