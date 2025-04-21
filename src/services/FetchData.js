@@ -48,7 +48,7 @@ export default function FetchData () {
         // TODO: add progress bar to fetch
         // https://javascript.info/fetch-progress
         const url = "https://www.web-of-wyrd.nl/my_astrobase/exoplanets-all/?soltype__icontains=confirmed"
-
+        //const url = "http://localhost:8000/my_astrobase/exoplanets-all/?soltype__icontains=confirmed"
         //const url = "https://uilennest.net/my_astrobase/exoplanets-all"
 
         if (my_state.status_exoplanets !== 'fetching')  {
