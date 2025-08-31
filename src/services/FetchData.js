@@ -24,7 +24,9 @@ export default function FetchData () {
     );
 
     const fetchAsteroids = () => {
-        const url = "https://www.web-of-wyrd.nl/my_astrobase/asteroids-all/"
+        //const url = "https://www.web-of-wyrd.nl/my_astrobase/asteroids-all/"
+        const url = "https://uilennest.net/my_astrobase/asteroids-all/"
+
         if (my_state.status_asteroids !== 'fetching')  {
 
             my_dispatch({type: SET_STATUS_ASTEROIDS, status: 'fetching'})
@@ -47,9 +49,9 @@ export default function FetchData () {
     const fetchExoplanets = () => {
         // TODO: add progress bar to fetch
         // https://javascript.info/fetch-progress
-        const url = "https://www.web-of-wyrd.nl/my_astrobase/exoplanets-all/?soltype__icontains=confirmed"
+        //const url = "https://www.web-of-wyrd.nl/my_astrobase/exoplanets-all/?soltype__icontains=confirmed"
+        const url = "https://uilennest.net/my_astrobase/exoplanets-all/?soltype__icontains=confirmed"
         //const url = "http://localhost:8000/my_astrobase/exoplanets-all/?soltype__icontains=confirmed"
-        //const url = "https://uilennest.net/my_astrobase/exoplanets-all"
 
         if (my_state.status_exoplanets !== 'fetching')  {
 
