@@ -79,6 +79,11 @@ const Aladin = (props) => {
             sourceSize: 18,
             labelColumn: 'star',
             displayLabel: true,
+            onClick: (source) => {
+                // inline popup with richer HTML
+                const { planet, star, info, nr_of_planets } = source.data;
+                aladin.popup(`<h3>${planet}</h3><p>Star: ${star}<br>${nr_of_planets}<br>${info}</p>`, source.ra, source.dec);
+            },
         });
 
         if (data && data.length) {
