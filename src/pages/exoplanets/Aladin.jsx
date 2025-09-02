@@ -8,10 +8,10 @@ import {
     ALADIN_FOV,
 } from '../../contexts/GlobalStateReducer';
 
-const Aladin = (props) => {
+const Aladin = ({ data }) => {
     const [my_state, my_dispatch] = useGlobalReducer();
 
-    // persistent refs
+    // persistent refs for viewer, overlays, and catalog
     const aladinRef = useRef(null);
     const overlaySelectedRef = useRef(null);
     const overlayMultipleRef = useRef(null);
@@ -20,7 +20,7 @@ const Aladin = (props) => {
     useEffect(() => {
         A.init.then(() => {
             if (!aladinRef.current) {
-                // initialize once
+                // initialize Aladin Lite once
                 aladinRef.current = A.aladin('#aladin-lite-div', {
                     survey: 'P/DSS2/color',
                     fov: parseFloat(my_state.aladin_fov) || 60,
@@ -28,14 +28,16 @@ const Aladin = (props) => {
                     cooFrame: 'equatorial',
                 });
 
-                // create overlays once
+                const aladin = aladinRef.current;
+
+                // create persistent overlays
                 overlaySelectedRef.current = A.graphicOverlay({
                     name: 'Selected planet',
                     color: 'yellow',
                     lineWidth: 3,
                     opacity: 0.8,
                 });
-                aladinRef.current.addOverlay(overlaySelectedRef.current);
+                aladin.addOverlay(overlaySelectedRef.current);
 
                 overlayMultipleRef.current = A.graphicOverlay({
                     name: 'Multiple planets',
@@ -43,9 +45,9 @@ const Aladin = (props) => {
                     lineWidth: 2,
                     opacity: 0.7,
                 });
-                aladinRef.current.addOverlay(overlayMultipleRef.current);
+                aladin.addOverlay(overlayMultipleRef.current);
 
-                // create catalog once
+                // create persistent catalog
                 exoCatalogRef.current = A.catalog({
                     name: 'Exoplanets',
                     shape: 'circle',
@@ -54,15 +56,14 @@ const Aladin = (props) => {
                     labelColumn: 'star',
                     displayLabel: true,
                 });
-                aladinRef.current.addCatalog(exoCatalogRef.current);
+                aladin.addCatalog(exoCatalogRef.current);
 
-                // register hover listener
-                aladinRef.current.on('objectHovered', (object) => {
-                    const [ra, dec] = aladinRef.current.getRaDec();
+                // hover listener to update global state
+                aladin.on('objectHovered', (object) => {
+                    const [ra, dec] = aladin.getRaDec();
                     my_dispatch({ type: ALADIN_RA, aladin_ra: ra });
                     my_dispatch({ type: ALADIN_DEC, aladin_dec: dec });
-
-                    const [fovX] = aladinRef.current.getFov();
+                    const [fovX] = aladin.getFov();
                     my_dispatch({ type: ALADIN_FOV, aladin_fov: fovX });
 
                     if (object?.data?.planet) {
@@ -72,56 +73,62 @@ const Aladin = (props) => {
                         });
                     }
                 });
+
+                // add optional Simbad catalog
+                A.catalogFromSimbad(
+                    'M45',
+                    0.2,
+                    { shape: 'plus', color: '#55dd55', sourceSize: 10, onClick: 'showPopup' },
+                    (simbadCat) => aladin.addCatalog(simbadCat)
+                );
             }
 
-            // always move to RA/DEC
+            // always update RA/DEC
             aladinRef.current.gotoRaDec(my_state.aladin_ra, my_state.aladin_dec);
 
-            // update layers & catalog with new data
-            updateLayersAndCatalog(props.data);
+            // populate overlays & catalog
+            updateLayersAndCatalog(data);
         });
     }, [
-        props.data,
+        data,
         my_state.selected_exoplanet,
         my_state.aladin_ra,
         my_state.aladin_dec,
         my_state.aladin_fov,
     ]);
 
+    // helper: clear overlays & catalog and redraw
     const updateLayersAndCatalog = (data) => {
         if (!aladinRef.current) return;
 
-        // clear previous content but keep overlays/catalog
         overlaySelectedRef.current.removeAll();
         overlayMultipleRef.current.removeAll();
-        exoCatalogRef.current.clear();   // ✅ modern API
+        exoCatalogRef.current.clear();
 
-        if (data && data.length) {
-            data.forEach((object) => {
-                // highlight selected planet
-                if (object.pl_name === my_state.selected_exoplanet) {
-                    overlaySelectedRef.current.add(
-                        A.circle(object.ra, object.dec, 1, { color: 'yellow', lineWidth: 2 })
-                    );
-                }
-                // highlight multiple-planet systems
-                else if (object.sy_pnum > 1) {
-                    overlayMultipleRef.current.add(
-                        A.circle(object.ra, object.dec, 0.5, { color: 'lime', lineWidth: 2 })
-                    );
-                }
+        if (!data || !data.length) return;
 
-                // add to catalog with popup
-                addToCatalog(exoCatalogRef.current, object);
-            });
-        }
+        data.forEach((object) => {
+            // selected planet highlight
+            if (object.pl_name === my_state.selected_exoplanet) {
+                overlaySelectedRef.current.add(
+                    A.circle(object.ra, object.dec, 1, { color: 'yellow', lineWidth: 2 })
+                );
+            }
+            // multiple-planet system highlight
+            else if (object.sy_pnum > 1) {
+                overlayMultipleRef.current.add(
+                    A.circle(object.ra, object.dec, 0.5, { color: 'lime', lineWidth: 2 })
+                );
+            }
+
+            // add marker with popup
+            addToCatalog(exoCatalogRef.current, object);
+        });
     };
 
-
-    // modernized addToCatalog
+    // modern addToCatalog with popupHtml
     const addToCatalog = (my_catalog, object) => {
         const name = object.pl_name.replaceAll(' ', '_');
-
         const kyotoUrl = `http://www.exoplanetkyoto.org/exohtml/${name}.html`;
         const nasaUrl = `https://exoplanetarchive.ipac.caltech.edu/overview/${name}`;
         const simbadUrl = `http://simbad.u-strasbg.fr/simbad/sim-id?Ident=${object.hostname}`;
@@ -146,7 +153,7 @@ const Aladin = (props) => {
             planet: object.pl_name,
             star: object.hostname,
             nr_of_planets: `Planets: ${object.sy_pnum}`,
-            popupHtml, // Aladin Lite v3 shows this automatically
+            popupHtml, // shown automatically by Aladin Lite v3
         });
 
         my_catalog.addSources([source]);
